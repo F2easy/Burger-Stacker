@@ -28,11 +28,35 @@ export default class BurgerStacker extends Component{
         {name: 'Lettuce', color: 'lawngreen'},
         {name: 'Tomato', color: 'tomato'},
         {name: 'Bacon', color: 'maroon'},
-        {name: 'Onion', color: 'lightyellow'}
+        {name: 'Onion', color: 'lightyellow'},
+        {name: 'Cheese', color: 'Gold'}
     ],
     // going to be the ingredients on the burger that I'm stacking
     burgerIngredients: []
 }
+
+  // this area will hold our state manipulating functions.
+  // we will pass these functions as props to the correct components to make this app work the way we want it to
+  AddToStack = (e) => {
+    // this method targets the properties of an ingredient 
+    //  thos properties change based on which one is clicked
+    // we use those to build an object that resembles the original ingredient 
+    // { name: 'something', color: 'some color'}
+    // then, we will add that object to the burgerIngredients array
+    // and bc we pass that array to BurgerPnane, it will be looped over 
+    // and render an Ingredient component for each item in the array 
+    const ingName = e.target.innerText
+    const ingColor = e.target.style.backgroundColor
+    
+    console.log(`clicked ${ingName} and it is ${ingColor}`)
+    // class components use a special method to update their state
+    // This method is called 'setState'
+    // setState is ecpecting an object, and within that object, we can
+    // refer to an individual piece of state to update
+    this.setState({
+      burgerIngredients: [{ name: ingName, coloer: ingColor }]
+    })
+  }
 
   // another feature of class components, is the keyword 'this'
   // we need to use this when reffering to builtin function properties,
@@ -42,17 +66,18 @@ export default class BurgerStacker extends Component{
     render () {
       // whatever we return from the render method is the jsx we see on the page
       return (
-          <>
-              <h1>Burger Stacker</h1>
-              <div className='panes'>
-                  <IngList 
-                      ingredients={this.state.ingredients}
-                  />
-                  <BurgerPane 
-                      ingredients={this.state.burgerIngredients}
-                  />
-              </div>
-          </>
-      )
-  }
+        <>
+        <h1>Burger Stacker</h1>
+        <div className='panes'>
+            <IngList 
+                ingredients={this.state.ingredients}
+                add={this.addToStack}
+            />
+            <BurgerPane 
+                ingredients={this.state.burgerIngredients}
+            />
+        </div>
+    </>
+)
+}
 }
