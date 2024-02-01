@@ -5,13 +5,30 @@
 // this clickable item will be rendered by another, component called Ingredient
 
 import React, {Component} from 'react'
+import Ingredient from './Ingredients'
 
 export default class IngList extends Component {
   render(){
-    console.log('the props in ing list', this.props)
+    // If I want to pull something from props I can use destructuring syntax to isolate anything I'm brining in from props
+    const { ingredients } = this.props
+   // console.log('the props in ing list', this.props)
+    let allIngs = ingredients.map((ing, i) => (
+        // this mapp will immdediently return one item per loop iteration 
+        <li key={i}>
+            <Ingredient
+              Ingredient = {ing}
+              clickFunc={() => {console.log('clickFunc')}}
+              itemKey = {i}
+            />
+        </li>
+    ))
+
     return(
       <section className='pane'>
           <h3>Ingredient List</h3>
+          <ul>
+            { allIngs }
+          </ul>
       </section>
     )
   }
