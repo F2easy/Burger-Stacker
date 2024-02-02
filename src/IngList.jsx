@@ -4,13 +4,13 @@
 
 // this clickable item will be rendered by another, component called Ingredient
 
-import React, {Component} from 'react'
+// import React, {Component} from 'react'
 import Ingredient from './Ingredients'
 
-export default class IngList extends Component {
-  render(){
+const IngList = (props) => {
+
     // If I want to pull something from props I can use destructuring syntax to isolate anything I'm brining in from props
-    const { ingredients } = this.props
+    const { ingredients } = props
    // console.log('the props in ing list', this.props)
     let allIngs = ingredients.map((ing, i) => (
         // this mapp will immdediently return one item per loop iteration 
@@ -32,4 +32,5 @@ export default class IngList extends Component {
       </section>
     )
   }
-}
+
+  export default IngList
